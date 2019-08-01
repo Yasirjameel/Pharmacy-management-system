@@ -1,0 +1,5 @@
+SELECT product.Product_Name, customer.Name, employee.Full_Name
+FROM (((receipt
+INNER JOIN customer ON customer.w_id = receipt.w_id)
+INNER JOIN employee ON employee.q_id = receipt.q_id)
+INNER JOIN product ON product.s_id = receipt.s_id);

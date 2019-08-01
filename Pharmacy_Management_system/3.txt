@@ -1,0 +1,72 @@
+create database pharma
+
+create table login1
+(id int identity(1,1),
+username varchar(255) NOT NULL,
+[password] varchar(255) NOT NULL
+)
+
+create table employee
+(q_id int identity(1,1) primary key,
+Full_Name varchar(255) NOT NULL,
+Age int NOT NULL,
+[Address] varchar(255) NOT NULL,
+Hiring_date date NOT NULL,
+Contact varchar(255) NOT NULL
+)
+
+
+create table customer
+(w_id int identity(1,1) primary key,
+Name varchar(255) NOT NULL, //no number
+[Address] varchar(255) NOT NULL,
+Contact varchar(255) NOT NULL //bigint 
+)
+
+create table supplier
+(a_id int identity(1,1) primary key,
+Name varchar(255)NOT NULL,
+[Address] varchar(255) NOT NULL,
+Contact varchar(255)NOT NULL
+)
+
+create table stock
+(d_id int identity(1,1) primary key,
+a_id int,
+Batch_no varchar(255) NOT NULL,
+Quantity int NOT NULL,
+Exp_date date NOT NULL,
+[Buying_price_perunit] int NOT NULL, //float
+[Selling_price_perunit] int NOT NULL, //float
+[Bought_date] date NOT NULL,
+[Expiry_date] date NOT NULL,
+foreign key (a_id) references supplier(a_id),
+)
+create table product
+(s_id int identity(1,1) primary key,
+p_id int,
+t_id int,
+[Drug_type] varchar(255) NOT NULL,
+[Section_no] varchar(255) NOT NULL,
+[Product_name] varchar(255) NOT NULL, //no number
+Potency varchar(255) NOT NULL,
+foreign key (p_id) references product1(p_id),
+foreign key (t_id) references section(t_id),
+)
+
+create table product1
+(p_id int identity(1,1) primary key,
+[Type] varchar(255),
+) 
+
+create table section
+(t_id int identity(1,1) primary key,
+[Section_no] varchar(255),
+[Section_detail] varchar(255)
+) 
+
+SELECT product.Product_Name, customer.Name, employee.Full_Name
+FROM (((receipt
+INNER JOIN customer ON customer.w_id = receipt.w_id)
+INNER JOIN employee ON employee.q_id = receipt.q_id)
+INNER JOIN product ON product.s_id = receipt.s_id);
